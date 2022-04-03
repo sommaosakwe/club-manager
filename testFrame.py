@@ -3,11 +3,10 @@ from tkinter import *
 class testFrame(Frame):
 
     def addButton(self):
-        f = Label(self, text="Test Frame Behaviour")
-        f.pack()
+        pass
 
     def __init__(self, parent):
-        Frame.__init__(self, parent, name="test")
-        button = Button(self, text="Test Button", command=self.addButton)
+        Frame.__init__(self, parent.main, name="test")
+        button = Button(self, text="Go to Main Frame", command=lambda: parent.switchFrame("main"))
         button.grid(row=0,column=1)
         button.pack()

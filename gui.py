@@ -4,27 +4,22 @@ from testFrame import testFrame
 
 class GUI:
 
-    currentFrame = None
-
     def __init__(self):
         self.main = Tk()
+        self.currentFrame = None
+        self.frames = {"main": mainFrame, "test": testFrame}
 
-    def switchFrames(self):
-        if self.currentFrame.winfo_name() == "main":
+    def switchFrame(self, frameName):
+        f = self.frames[frameName]
+        if self.currentFrame is not None:
             self.currentFrame.pack_forget()
-            self.currentFrame = testFrame(self.main)
-            self.currentFrame.pack()
-        elif self.currentFrame.winfo_name() == "test":
-            self.currentFrame.pack_forget()
-            self.currentFrame = mainFrame(self.main)
-            self.currentFrame.pack()
+        self.currentFrame = f(self)
+        self.currentFrame.pack()
 
     def createMainWindow(self):
         self.main.title("Club Finances")
         self.main.geometry('1280x720')
-        b = Button(self.main, text = "Switch Frames", command=self.switchFrames)
-        b.pack()
-        self.currentFrame = mainFrame(self.main)
+        self.currentFrame = mainFrame(self)
         self.currentFrame.pack()
         self.main.mainloop()
     
