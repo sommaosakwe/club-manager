@@ -7,10 +7,10 @@ class GUI:
     def __init__(self):
         self.main = Tk()
         self.currentFrame = None
-        self.frames = {"main": mainFrame, "test": testFrame}
+        self.children = {"main": mainFrame, "test": testFrame}
 
     def switchFrame(self, frameName):
-        f = self.frames[frameName]
+        f = self.children[frameName]
         if self.currentFrame is not None:
             self.currentFrame.pack_forget()
         self.currentFrame = f(self)
