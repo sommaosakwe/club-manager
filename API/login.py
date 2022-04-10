@@ -3,7 +3,7 @@ class login:
     def memberLogin(self, username, password):
         with open('./data/memberCredentials.txt') as f:
             for line in f.readlines():
-                data = line.split(' ')
+                data = line.rstrip('\n').split(' ')
                 if username == data[0]:
                     if password == data[1]:
                         return True
@@ -12,7 +12,7 @@ class login:
     def coachLogin(self, username, password):
         with open('./data/coachCredentials.txt') as f:
             for line in f.readlines():
-                data = line.split(' ')
+                data = line.rstrip('\n').split(' ')
                 if username == data[0]:
                     if password == data[1]:
                         return True
