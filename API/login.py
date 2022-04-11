@@ -1,5 +1,7 @@
 class login:
 
+    # Checks if a given username and password exist within
+    # the list of member credentials
     def memberLogin(self, username, password):
         with open('./data/memberCredentials.txt') as f:
             for line in f.readlines():
@@ -9,6 +11,8 @@ class login:
                         return True
         return False
 
+    # Checks if a given username and password exist within
+    # the list of coach credentials
     def coachLogin(self, username, password):
         with open('./data/coachCredentials.txt') as f:
             for line in f.readlines():
@@ -19,4 +23,6 @@ class login:
         return False
 
     def treasurerLogin(self, username, password):
-        pass
+        if username == 'clubtreasurer' and password == '12345':
+            return True
+        return False
