@@ -1,10 +1,13 @@
 from tkinter import *
-from GUI.coachLoginFrame import coachLoginFrame
-from GUI.mainFrame import mainFrame
-from GUI.memberContainer import memberContainer
-from GUI.memberLoginFrame import memberLoginFrame
+
 from GUI.loginChoiceFrame import loginChoiceFrame
+from GUI.coachLoginFrame import coachLoginFrame
+from GUI.memberLoginFrame import memberLoginFrame
 from GUI.treasurerLoginFrame import treasurerLoginFrame
+from GUI.memberContainer import memberContainer
+from GUI.coachContainer import coachContainer
+from GUI.memberCreateAccountFrame import memberCreateAccountFrame
+from GUI.coachCreateAccountFrame import coachCreateAccountFrame
 
 class GUI:
 
@@ -12,12 +15,14 @@ class GUI:
         self.main = Tk()
         self.currentFrame = None
         self.childrenFrames = {
-            "main": mainFrame,
             "loginChoice": loginChoiceFrame,
             "memberLogin": memberLoginFrame,
             "coachLogin": coachLoginFrame,
             "treasurerLogin": treasurerLoginFrame,
-            "memberContainer": memberContainer
+            "memberContainer": memberContainer,
+            "coachContainer": coachContainer,
+            "memberCreateAccount": memberCreateAccountFrame,
+            "coachCreateAccount": coachCreateAccountFrame
         }
 
     def switchFrame(self, frameName):

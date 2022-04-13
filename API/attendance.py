@@ -1,7 +1,7 @@
 class attendance:
 
     # Adds given week to list of attended weeks for given member
-    def memberAttend(self, username, week):
+    def memberAttend(username, week):
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         weeks = [int(n) for n in data[1].split(' ') if n]
@@ -11,7 +11,7 @@ class attendance:
             f.writelines('\n'.join(data))
 
     # Adds given week to list of paid weeks for given member
-    def memberPay(self, username, week):
+    def memberPay(username, week):
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         weeks = [int(n) for n in data[2].split(' ') if n]
@@ -21,7 +21,7 @@ class attendance:
             f.writelines('\n'.join(data))
 
     # Adds given week to list of attended weeks for given coach
-    def coachAttend(self, username, week):
+    def coachAttend(username, week):
         with open("./data/coaches/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         weeks = [int(n) for n in data[1].rstrip('\n').split(' ') if n]
@@ -32,7 +32,7 @@ class attendance:
 
     # Returns list of tuples (x, y) where x is a member username and y is the number
     # of weeks that member has attended, sorted by y
-    def sortedMembers(self):
+    def sortedMembers():
         memberUsernames = []
         memberAttendances = []
         with open("./data/memberCredentials.txt", 'r') as f:

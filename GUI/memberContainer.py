@@ -1,7 +1,12 @@
 from tkinter import *
+
+from API.memberStats import memberStats
+from API.currentUser import currentUser
+
 from GUI.memberFrames.memberAttendanceFrame import memberAttendanceFrame
 from GUI.memberFrames.memberPayFrame import memberPayFrame
 from GUI.memberFrames.memberNotificationsFrame import memberNotificationsFrame
+from GUI.memberFrames.memberDeadendFrame import memberDeadendFrame
 
 class memberContainer(Frame):
 
@@ -12,9 +17,15 @@ class memberContainer(Frame):
         self.childrenFrames = {
             "memberAttendance": memberAttendanceFrame,
             "memberPay": memberPayFrame,
-            "memberNotifications": memberNotificationsFrame
+            "memberNotifications": memberNotificationsFrame,
+            "memberDeadend": memberDeadendFrame
         }
-        self.currentFrame = memberNotificationsFrame(self)
+
+        if memberStats.singleMemberClubPresence(currentUser.getCurrentUser()):
+            self.currentFrame = memberAttendanceFrame(self)
+        else:
+            self.currentFrame = memberDeadendFrame(self)
+
         self.currentFrame.pack()
 
     def switchFrame(self, frameName):

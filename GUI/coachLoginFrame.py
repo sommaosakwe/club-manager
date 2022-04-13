@@ -1,12 +1,15 @@
 from tkinter import *
+
 from API.login import login
+from API.currentUser import currentUser
 
 class coachLoginFrame(Frame):
 
-    def login(self, username, password):
+    def login(self, parent, username, password):
         l = login()
         if (l.coachLogin(username, password)):
-            Label(self, text="Logged in").place(anchor='s',relx=0.5, rely=0.5)
+            currentUser.setCurrentUser(username)
+            parent.switchFrame("coachContainer")
         else:
             Label(self, text="Incorrect login!").place(anchor='s',relx=0.5, rely=0.5)
 
@@ -25,17 +28,21 @@ class coachLoginFrame(Frame):
         usernameL = Label(usernameS, text="Username:")
         usernameL.pack(anchor='w',side=LEFT)
         usernameF = Entry(usernameS)
-        usernameF.pack(anchor='w',side=LEFT, fill=X)
-        usernameS.pack(anchor='w',side=TOP)
+        usernameF.pack(anchor='w',side=LEFT,fill=X,expand=1)
+        usernameS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
         passwordS = Frame(container)
         passwordL = Label(passwordS, text="Password:")
         passwordL.pack(anchor='w',side=LEFT)
         passwordF = Entry(passwordS)
-        passwordF.pack(anchor='w',side=LEFT, fill=X)
-        passwordS.pack(anchor='w',side=TOP)
+        passwordF.pack(anchor='w',side=LEFT,fill=X,expand=1)
+        passwordS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
-        submit = Button(container, text="Login", command=lambda: self.login(usernameF.get(), passwordF.get()))
-        submit.pack(anchor='sw',side=BOTTOM)
+        buttonF = Frame(container)
+        submit = Button(buttonF, text="Login", command=lambda:self.login(parent, usernameF.get(), passwordF.get()))
+        submit.pack(side=LEFT)
+        createAccount = Button(buttonF, text="Create Account", command=lambda: parent.switchFrame("coachCreateAccount"))
+        createAccount.pack(side=RIGHT)
+        buttonF.pack(side=BOTTOM,fill=X,expand=1)
+
         container.place(relx=0.5, rely=0.33, anchor="center")
-

@@ -1,3 +1,4 @@
+from cmath import exp
 from re import L
 from tkinter import *
 from API.login import login
@@ -28,16 +29,21 @@ class memberLoginFrame(Frame):
         usernameL = Label(usernameS, text="Username:")
         usernameL.pack(anchor='w',side=LEFT)
         usernameF = Entry(usernameS)
-        usernameF.pack(anchor='w',side=LEFT)
-        usernameS.pack(anchor='w',side=TOP)
+        usernameF.pack(anchor='w',side=LEFT,fill=X,expand=1)
+        usernameS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
         passwordS = Frame(container)
         passwordL = Label(passwordS, text="Password:")
         passwordL.pack(anchor='w',side=LEFT)
         passwordF = Entry(passwordS)
-        passwordF.pack(anchor='w',side=LEFT)
-        passwordS.pack(anchor='w',side=TOP)
+        passwordF.pack(anchor='w',side=LEFT,fill=X,expand=1)
+        passwordS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
-        submit = Button(container, text="Login", command=lambda:self.login(parent, usernameF.get(), passwordF.get()))
-        submit.pack(anchor='w',side=BOTTOM)
+        buttonF = Frame(container)
+        submit = Button(buttonF, text="Login", command=lambda:self.login(parent, usernameF.get(), passwordF.get()))
+        submit.pack(side=LEFT)
+        createAccount = Button(buttonF, text="Create Account", command=lambda: parent.switchFrame("memberCreateAccount"))
+        createAccount.pack(side=RIGHT)
+        buttonF.pack(side=BOTTOM,fill=X,expand=1)
+
         container.place(relx=0.5, rely=0.33, anchor="center")

@@ -3,7 +3,7 @@ class login:
     # Checks if a given username and password exist within
     # the list of member credentials
     def memberLogin(self, username, password):
-        with open('./data/memberCredentials.txt') as f:
+        with open('./data/memberCredentials.txt','r') as f:
             for line in f.readlines():
                 data = line.rstrip('\n').split(' ')
                 if username == data[0]:
@@ -14,7 +14,7 @@ class login:
     # Checks if a given username and password exist within
     # the list of coach credentials
     def coachLogin(self, username, password):
-        with open('./data/coachCredentials.txt') as f:
+        with open('./data/coachCredentials.txt','r') as f:
             for line in f.readlines():
                 data = line.rstrip('\n').split(' ')
                 if username == data[0]:

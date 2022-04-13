@@ -1,7 +1,7 @@
 class memberStats:
 
     # Returns the number of sessions a given member has not paid for
-    def getUnpaidSessions(self, username):
+    def getUnpaidSessions(username):
         weeksAttended = []
         weeksPaid = []
         with open("./data/members/" + username + ".txt", 'r') as f:
@@ -13,7 +13,7 @@ class memberStats:
 
     # Returns list of tuples (x, y) where x is a member username
     # and y is a boolean representing their presence in the club
-    def memberClubPresence(self):
+    def memberClubPresence():
         memberUsernames = []
         memberPresences = []
         with open("./data/memberCredentials.txt", 'r') as f:
@@ -28,17 +28,21 @@ class memberStats:
                     memberPresences.append((username, False))
         return memberPresences
 
-    def addMember(self, username):
+    def singleMemberClubPresence(username):
+        with open("./data/members/" + username + ".txt", 'r') as f:
+            data = f.read().split('\n')
+        return data[0] == 'IN'
+
+    def addMember(username):
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         data[0] = 'IN'
         with open("./data/coaches/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))
     
-    def removeMember(self, username):
+    def removeMember(username):
         with open("./data/coaches/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         data[0] = 'OUT'
         with open("./data/coaches/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))
-

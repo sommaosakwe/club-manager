@@ -21,7 +21,7 @@ class createAccount:
             with open('./data/memberCredentials.txt', 'a') as f:
                 f.write(username + " " + password + "\n")
                 with open("./data/members/" + username + ".txt", 'x') as m:
-                    m.write('OUT\n\n')
+                    m.write('OUT\n\n\n')
                 return True
         return False
     
