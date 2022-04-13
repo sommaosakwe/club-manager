@@ -1,13 +1,15 @@
 from re import L
 from tkinter import *
 from API.login import login
+from API.currentUser import currentUser
 
 class memberLoginFrame(Frame):
 
-    def login(self, username, password):
+    def login(self, parent, username, password):
         l = login()
         if (l.memberLogin(username, password)):
-            Label(self, text="Logged in").place(anchor='s',relx=0.5, rely=0.5)
+            currentUser.setCurrentUser(username)
+            parent.switchFrame("memberContainer")
         else:
             Label(self, text="Incorrect login!").place(anchor='s',relx=0.5, rely=0.5)
 
@@ -36,7 +38,6 @@ class memberLoginFrame(Frame):
         passwordF.pack(anchor='w',side=LEFT)
         passwordS.pack(anchor='w',side=TOP)
 
-        submit = Button(container, text="Login", command=lambda: self.login(usernameF.get(), passwordF.get()))
+        submit = Button(container, text="Login", command=lambda:self.login(parent, usernameF.get(), passwordF.get()))
         submit.pack(anchor='w',side=BOTTOM)
         container.place(relx=0.5, rely=0.33, anchor="center")
-
