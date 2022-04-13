@@ -2,3 +2,5 @@ __pycache__
 API/__pycache__
 GUI/__pycache__
 GUI/memberFrames/__pycache__
+GUI/coachFrames/__pycache__
+GUI/treasurerFrames/__pycache__

@@ -5,8 +5,7 @@ from API.createAccount import createAccount
 class coachCreateAccountFrame(Frame):
 
     def createAccount(self, username, password):
-        c = createAccount()
-        if c.createCoach(username, password):
+        if createAccount.createCoach(username, password):
             Label(self, text="Account created").place(anchor='s',relx=0.5, rely=0.5)
         else:
             Label(self, text="Coach with that username already exists").place(anchor='s',relx=0.5, rely=0.5)

@@ -7,8 +7,7 @@ from API.currentUser import currentUser
 class memberLoginFrame(Frame):
 
     def login(self, parent, username, password):
-        l = login()
-        if (l.memberLogin(username, password)):
+        if (login.memberLogin(username, password)):
             currentUser.setCurrentUser(username)
             parent.switchFrame("memberContainer")
         else:

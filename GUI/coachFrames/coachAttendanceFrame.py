@@ -12,8 +12,8 @@ class coachAttendanceFrame(Frame):
         weekLabel = Label(self, text="Week: " + str(week.getCurrentWeek()))
         weekLabel.pack(anchor='nw',side=LEFT)
 
-        back = Button(self, text="Logout", command=lambda: exit(0))
-        back.pack(anchor='ne',side=RIGHT)
+        logout = Button(self, text="Logout", command=lambda: parent.parent.switchFrame("loginChoice"))
+        logout.pack(anchor='ne',side=RIGHT)
 
         nav = Frame(self)
 

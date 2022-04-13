@@ -1,12 +1,14 @@
 from tkinter import *
+
 from API.login import login
+from API.currentUser import currentUser
 
 class treasurerLoginFrame(Frame):
 
-    def login(self, username, password):
-        l = login()
-        if (l.treasurerLogin(username, password)):
-            Label(self, text="Logged in").place(anchor='s',relx=0.5, rely=0.5)
+    def login(self, parent, username, password):
+        if (login.treasurerLogin(username, password)):
+            currentUser.setCurrentUser("clubtreasurer")
+            parent.switchFrame("treasurerContainer")
         else:
             Label(self, text="Incorrect login!").place(anchor='s',relx=0.5, rely=0.5)
 
@@ -35,7 +37,7 @@ class treasurerLoginFrame(Frame):
         passwordF.pack(anchor='w',side=LEFT,fill=X,expand=1)
         passwordS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
-        submit = Button(container, text="Login", command=lambda: self.login(usernameF.get(), passwordF.get()))
+        submit = Button(container, text="Login", command=lambda: self.login(parent, usernameF.get(), passwordF.get()))
         submit.pack(anchor='w',side=BOTTOM)
         container.place(relx=0.5, rely=0.33, anchor="center")
 

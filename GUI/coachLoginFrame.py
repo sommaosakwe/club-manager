@@ -6,8 +6,7 @@ from API.currentUser import currentUser
 class coachLoginFrame(Frame):
 
     def login(self, parent, username, password):
-        l = login()
-        if (l.coachLogin(username, password)):
+        if (login.coachLogin(username, password)):
             currentUser.setCurrentUser(username)
             parent.switchFrame("coachContainer")
         else:

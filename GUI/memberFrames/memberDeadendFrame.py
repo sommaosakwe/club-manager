@@ -6,8 +6,8 @@ class memberDeadendFrame(Frame):
         self.config(width=1280, height=720)
         self.pack_propagate(False)
 
-        back = Button(self, text="Logout", command=lambda: exit(0))
-        back.pack(anchor='ne',side=RIGHT)
+        logout = Button(self, text="Logout", command=lambda: parent.parent.switchFrame("loginChoice"))
+        logout.pack(anchor='ne',side=RIGHT)
 
         errorMessage = Label(self, text="Error: You are not registered in the club!\nPlease provide a coach with your username to be registered.")
         errorMessage.pack(side=TOP)

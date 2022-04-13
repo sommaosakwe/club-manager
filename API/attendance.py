@@ -30,19 +30,23 @@ class attendance:
         with open("./data/coaches/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))
 
-    # Returns list of tuples (x, y) where x is a member username and y is the number
-    # of weeks that member has attended, sorted by y
+    # Returns list of tuples (x, y, z) where x is a member username,
+    # y indicates that member's presence in the club, and z is the number
+    # of weeks that member has attended, sorted by z
     def sortedMembers():
         memberUsernames = []
         memberAttendances = []
         with open("./data/memberCredentials.txt", 'r') as f:
             for line in f.read().split('\n'):
-                memberUsernames.append(line.split(' ')[0])
+                line and memberUsernames.append(line.split(' ')[0])
         for username in memberUsernames:
             with open("./data/members/" + username + ".txt", 'r') as f:
                 data = f.read().split('\n')
                 if data[0] == 'IN':
                     weeksAttended = [int(n) for n in data[1].split(' ') if n]
-                    memberAttendances.append((username, len(weeksAttended)))
-        memberAttendances.sort(key=lambda m: m[1])
+                    memberAttendances.append((username, True, len(weeksAttended)))
+                elif data[0] == 'OUT':
+                    memberAttendances.append((username, False, 0))
+        memberAttendances.sort(key=lambda m: m[2])
+        memberAttendances.reverse()
         return memberAttendances

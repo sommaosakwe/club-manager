@@ -1,6 +1,6 @@
 class createAccount:
 
-    def memberExists(self, username):
+    def memberExists(username):
         with open('./data/memberCredentials.txt') as f:
             for line in f.readlines():
                 data = line.split(' ')
@@ -8,7 +8,7 @@ class createAccount:
                     return True
         return False
     
-    def coachExists(self, username):
+    def coachExists(username):
         with open('./data/coachCredentials.txt') as f:
             for line in f.readlines():
                 data = line.split(' ')
@@ -16,8 +16,8 @@ class createAccount:
                     return True
         return False
 
-    def createMember(self, username, password):
-        if not self.memberExists(username):
+    def createMember(username, password):
+        if not createAccount.memberExists(username):
             with open('./data/memberCredentials.txt', 'a') as f:
                 f.write(username + " " + password + "\n")
                 with open("./data/members/" + username + ".txt", 'x') as m:
@@ -26,7 +26,7 @@ class createAccount:
         return False
     
     def createCoach(self, username, password):
-        if not self.coachExists(username):
+        if not createAccount.coachExists(username):
             with open('./data/coachCredentials.txt', 'a') as f:
                 f.write(username + " " + password + "\n")
                 with open("./data/coaches/" + username + ".txt", 'x') as c:

@@ -4,8 +4,7 @@ from API.createAccount import createAccount
 
 class memberCreateAccountFrame(Frame):
     def createAccount(self, username, password):
-        c = createAccount()
-        if c.createMember(username, password):
+        if createAccount.createMember(username, password):
             Label(self, text="Account created").place(anchor='s',relx=0.5, rely=0.5)
         else:
             Label(self, text="Member with that username already exists").place(anchor='s',relx=0.5, rely=0.5)

@@ -11,6 +11,7 @@ class coachContainer(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent.main, name="memberContainer")
         self.config(width=1280, height=720)
+        self.parent = parent
 
         self.childrenFrames = {
             "coachMemberList": None,

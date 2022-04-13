@@ -6,6 +6,7 @@ from GUI.memberLoginFrame import memberLoginFrame
 from GUI.treasurerLoginFrame import treasurerLoginFrame
 from GUI.memberContainer import memberContainer
 from GUI.coachContainer import coachContainer
+from GUI.treasurerContainer import treasurerContainer
 from GUI.memberCreateAccountFrame import memberCreateAccountFrame
 from GUI.coachCreateAccountFrame import coachCreateAccountFrame
 
@@ -21,6 +22,7 @@ class GUI:
             "treasurerLogin": treasurerLoginFrame,
             "memberContainer": memberContainer,
             "coachContainer": coachContainer,
+            "treasurerContainer": treasurerContainer,
             "memberCreateAccount": memberCreateAccountFrame,
             "coachCreateAccount": coachCreateAccountFrame
         }
