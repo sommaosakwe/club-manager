@@ -1,5 +1,6 @@
 from tkinter import *
 
+from GUI.treasurerFrames.treasurerCoachListFrame import treasurerCoachListFrame
 from GUI.treasurerFrames.treasurerPaymentMethodFrame import treasurerPaymentMethodFrame
 
 class treasurerContainer(Frame):
@@ -10,10 +11,10 @@ class treasurerContainer(Frame):
         self.parent = parent
 
         self.childrenFrames = {
-            "treasurerPaymentMethod": treasurerPaymentMethodFrame
+            "treasurerCoachListFrame": treasurerCoachListFrame
         }
 
-        self.currentFrame = treasurerPaymentMethodFrame(self, 100)
+        self.currentFrame = treasurerCoachListFrame(self)
         self.currentFrame.pack()
 
     def switchFrame(self, frameName):

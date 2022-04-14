@@ -4,7 +4,10 @@ from API.coachStats import coachStats
 from API.currentUser import currentUser
 
 from GUI.coachFrames.coachAttendanceFrame import coachAttendanceFrame
+from GUI.coachFrames.coachCreateNotificationFrame import coachCreateNotificationFrame
 from GUI.coachFrames.coachDeadendFrame import coachDeadendFrame
+from GUI.coachFrames.coachMemberListFrame import coachMemberListFrame
+from GUI.coachFrames.coachNotificationsFrame import coachNotificationsFrame
 
 class coachContainer(Frame):
 
@@ -14,9 +17,10 @@ class coachContainer(Frame):
         self.parent = parent
 
         self.childrenFrames = {
-            "coachMemberList": None,
+            "coachMemberList": coachMemberListFrame,
             "coachAttendance": coachAttendanceFrame,
-            "coachNotifications": None,
+            "coachNotifications": coachNotificationsFrame,
+            "coachCreateNotification": coachCreateNotificationFrame,
             "coachDeadend": coachDeadendFrame
         }
 

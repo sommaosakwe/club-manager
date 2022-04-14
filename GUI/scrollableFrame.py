@@ -10,7 +10,7 @@ class ScrollableFrame(ttk.Frame):
 
         scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
 
-        self.scrollable_frame = ttk.Frame(canvas,width=1280*0.8,height=720 * 0.9)
+        self.scrollable_frame = ttk.Frame(canvas,width=1280*0.8,height=720 * 0.8)
         self.scrollable_frame.pack_propagate(False)
 
         self.scrollable_frame.bind(

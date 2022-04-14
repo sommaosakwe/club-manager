@@ -1,20 +1,17 @@
 from tkinter import *
 from tkinter.ttk import Separator
 
-from GUI.scrollableFrame import ScrollableFrame
 from API.notificationData import notificationData
 from API.week import week
 
-class memberNotificationsFrame(Frame):
+from GUI.scrollableFrame import ScrollableFrame
 
+class coachNotificationsFrame(Frame):
     def getNotifications(self):
-        return notificationData.getMemberNotifications()
+        return notificationData.getTreasurerCoachNotifications()
 
-    def createNotification(self, parent, username, message):
+    def createNotification(self, parent, message):
         notificationContainer = Frame(parent)
-
-        heading = Label(notificationContainer, text=username,font=("Arial Bold",10))
-        heading.pack(anchor='nw',side=TOP)
 
         body = Label(notificationContainer, text=message)
         body.pack(anchor='nw',side=BOTTOM)
@@ -28,14 +25,14 @@ class memberNotificationsFrame(Frame):
         scrollableFrame.pack_propagate(False)
 
         for notificationData in self.getNotifications():
-            self.createNotification(scrollableFrame.scrollable_frame, notificationData[0], notificationData[1]).pack(anchor='nw',side=TOP)
+            self.createNotification(scrollableFrame.scrollable_frame, notificationData).pack(anchor='nw',side=TOP)
             Separator(scrollableFrame.scrollable_frame,orient='horizontal').pack(anchor='nw',side=TOP,fill=X)
         
         scrollableFrame.pack()
         return container
 
     def __init__(self, parent):
-        Frame.__init__(self, parent, name="memberNotifications")
+        Frame.__init__(self, parent, name="coachNotifications")
         self.config(width=1280, height=720)
         self.pack_propagate(False)
 
@@ -47,10 +44,10 @@ class memberNotificationsFrame(Frame):
 
         nav = Frame(self)
 
-        pay = Button(nav, text="Payment", command=lambda: parent.switchFrame("memberPay"))
+        pay = Button(nav, text="Member List", command=lambda: parent.switchFrame("coachMemberList"))
         pay.grid(column=0,row=0)
 
-        attend = Button(nav, text="Attendance", command=lambda: parent.switchFrame("memberAttendance"))
+        attend = Button(nav, text="Attendance", command=lambda: parent.switchFrame("coachAttendance"))
         attend.grid(column=1,row=0)
 
         notifications = Button(nav, text="Notifications")
@@ -60,3 +57,6 @@ class memberNotificationsFrame(Frame):
 
         notificationBox = self.notificationBox(self)
         notificationBox.pack(side=TOP)
+
+        createMemberNotification = Button(self,text="Send Notification to Members...",command=lambda:parent.switchFrame("coachCreateNotification"))
+        createMemberNotification.pack(side=TOP)

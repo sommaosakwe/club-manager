@@ -6,7 +6,7 @@ class coachStats:
         coachPresences = []
         with open("./data/coachCredentials.txt", 'r') as f:
             for line in f.read().split('\n'):
-                coachUsernames.append(line.split(' ')[0])
+                line and coachUsernames.append(line.split(' ')[0])
         for username in coachUsernames:
             with open("./data/coaches/" + username + ".txt", 'r') as f:
                 data = f.read().split('\n')
@@ -29,8 +29,5 @@ class coachStats:
             f.writelines('\n'.join(data))
     
     def removeCoach(username):
-        with open("./data/coaches/" + username + ".txt", 'r') as f:
-            data = f.read().split('\n')
-        data[0] = 'OUT'
         with open("./data/coaches/" + username + ".txt", 'w') as f:
-            f.writelines('\n'.join(data))
+            f.writelines('OUT\n')

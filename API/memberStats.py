@@ -18,7 +18,7 @@ class memberStats:
         memberPresences = []
         with open("./data/memberCredentials.txt", 'r') as f:
             for line in f.read().split('\n'):
-                memberUsernames.append(line.split(' ')[0])
+                line and memberUsernames.append(line.split(' ')[0])
         for username in memberUsernames:
             with open("./data/members/" + username + ".txt", 'r') as f:
                 data = f.read().split('\n')
@@ -37,12 +37,9 @@ class memberStats:
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         data[0] = 'IN'
-        with open("./data/coaches/" + username + ".txt", 'w') as f:
+        with open("./data/members/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))
     
     def removeMember(username):
-        with open("./data/coaches/" + username + ".txt", 'r') as f:
-            data = f.read().split('\n')
-        data[0] = 'OUT'
-        with open("./data/coaches/" + username + ".txt", 'w') as f:
-            f.writelines('\n'.join(data))
+        with open("./data/members/" + username + ".txt", 'w') as f:
+            f.writelines('OUT\n\n')
