@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from API.notificationData import notificationData
 
 from API.week import week
 from API.memberStats import memberStats
@@ -7,14 +8,30 @@ from API.currentUser import currentUser
 
 class memberPayFrame(Frame):
 
-    def payWeek(self, weekNum, weekCount):
+    def payWeek(self, parent, weekCount):
         username = currentUser.getCurrentUser()
-        amount = memberStats.getPaymentAmount(username)
+        weekNum = week.getCurrentWeek()
         for i in range(weekNum, weekNum + weekCount):
             if not memberStats.checkIfMemberPaid(username, i):
+                amount = memberStats.getPaymentAmount(username)
                 memberStats.memberPay(username, i)
-                memberStats.memberPayUpdateRevenue(i, amount)
+                memberStats.memberPayUpdateRevenue(weekNum, amount)
+                notificationData.addTreasurerCoachNotification(username + " paid $" + str(amount) + " for week " + str(i))
                 messagebox.showinfo("Payment Information", "You paid $" + str(amount) + " for week " + str(i))
+            else:
+                messagebox.showwarning("Payment Information", "You have already paid for week " + str(i))
+        parent.switchFrame("memberPay")
+    
+    def payOutstanding(self, parent):
+        username = currentUser.getCurrentUser()
+        unpaidWeeks = memberStats.getUnpaidSessionList(username)
+        thisWeek = week.getCurrentWeek()
+        for w in unpaidWeeks:
+            memberStats.memberPay(username, w)
+            memberStats.memberPayUpdateRevenue(thisWeek, 10.0)
+            notificationData.addTreasurerCoachNotification(username + " paid $10.0 for week " + str(w))
+            messagebox.showinfo("Payment Information", "You paid $10.0 for week " + str(w))
+        parent.switchFrame("memberPay")
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="memberPay")
@@ -45,20 +62,22 @@ class memberPayFrame(Frame):
 
         paymentResponses = Frame(self)
 
-        payThisWeek = Button(paymentResponses, text="Pay for this week (" + str(week.getCurrentWeek()) +  ")\n$"
-            + str(memberStats.getPaymentAmount(currentUser.getCurrentUser())), command=lambda: self.payWeek(week.getCurrentWeek(),1))
+        payThisWeek = Button(paymentResponses, text="Pay for this week", command=lambda: self.payWeek(parent, 1))
         payThisWeek.pack(side=TOP,fill=X)
 
-        payNext2Weeks = Button(paymentResponses, text="Pay for the next 2 weeks\n$"
-            + str(2 * memberStats.getPaymentAmount(currentUser.getCurrentUser())), command=lambda: self.payWeek(week.getCurrentWeek(),2))
+        payNext2Weeks = Button(paymentResponses, text="Pay for the next 2 weeks", command=lambda: self.payWeek(parent, 2))
         payNext2Weeks.pack(side=TOP,fill=X)
 
-        payNext3Weeks = Button(paymentResponses, text="Pay for the next 3 weeks\n$"
-            + str(3 * memberStats.getPaymentAmount(currentUser.getCurrentUser())), command=lambda: self.payWeek(week.getCurrentWeek(),3))
+        payNext3Weeks = Button(paymentResponses, text="Pay for the next 3 weeks", command=lambda: self.payWeek(parent, 3))
         payNext3Weeks.pack(side=TOP,fill=X)
 
-        payNextMonth = Button(paymentResponses, text="Pay for the next month\n$"
-            + str(4 * memberStats.getPaymentAmount(currentUser.getCurrentUser())), command=lambda: self.payWeek(week.getCurrentWeek(),4))
+        payNextMonth = Button(paymentResponses, text="Pay for the next month", command=lambda: self.payWeek(parent, 4))
         payNextMonth.pack(side=TOP,fill=X)
 
-        paymentResponses.pack(side=TOP)
+        paymentResponses.pack(side=TOP,pady=10)
+
+        if memberStats.getUnpaidSessions(currentUser.getCurrentUser()) != 0:
+            paymentOutstanding = Label(self, text="You have outstanding payments!")
+            paymentOutstanding.pack(side=TOP)
+            payOutstanding = Button(self, text="Pay outstanding payments", command=lambda: self.payOutstanding(parent))
+            payOutstanding.pack(side=TOP)

@@ -13,7 +13,7 @@ class coachMemberListFrame(Frame):
 
     def giveDiscount(self,username):
         memberStats.giveDiscount(username)
-        messagebox.showinfo("Give Discount","You have given a 25% discount to " + username)
+        messagebox.showinfo("Give Discount","You have given a 10% discount to " + username)
     
     def giveReminder(self,username):
         notificationData.addMemberNotification(currentUser.getCurrentUser(), username +", please pay for your unpaid sessions!")

@@ -25,8 +25,9 @@ class notificationData:
             line and notifications.append(line)
         if len(notifications) == 0:
             notifications.append("No notifications at this time")
+        notifications.reverse()
         return notifications
     
     def addTreasurerCoachNotification(message):
-        with open("./data/notifications/memberNotifications.txt", 'a') as f:
-            f.write(message)
+        with open("./data/notifications/tcNotifications.txt", 'a') as f:
+            f.write(message + '\n')

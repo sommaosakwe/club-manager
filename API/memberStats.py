@@ -1,7 +1,6 @@
 class memberStats:
 
-    # Returns the number of sessions a given member has not paid for
-    def getUnpaidSessions(username):
+    def getUnpaidSessionList(username):
         weeksAttended = []
         weeksPaid = []
         with open("./data/members/" + username + ".txt", 'r') as f:
@@ -10,7 +9,11 @@ class memberStats:
                     weeksAttended = [int(n) for n in data[1].split(' ') if n]
                     weeksPaid = [int(n) for n in data[2].split(' ') if n]
         unpaidSessions = list(set(weeksAttended) - set(weeksPaid))
-        return len(unpaidSessions)
+        return unpaidSessions
+
+    # Returns the number of sessions a given member has not paid for
+    def getUnpaidSessions(username):
+        return len(memberStats.getUnpaidSessionList(username))
 
     def getAttendedSessions(username):
         weeksAttended = []
@@ -104,11 +107,19 @@ class memberStats:
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
         discount = round(float(data[3]),2)
+        discount == 0.9 and memberStats.resetDiscount(username)
         return 10.00 * discount 
 
     def giveDiscount(username):
         with open("./data/members/" + username + ".txt", 'r') as f:
             data = f.read().split('\n')
-        data[3] = "0.75"
+        data[3] = "0.90"
+        with open("./data/members/" + username + ".txt", 'w') as f:
+            f.writelines('\n'.join(data))
+    
+    def resetDiscount(username):
+        with open("./data/members/" + username + ".txt", 'r') as f:
+            data = f.read().split('\n')
+        data[3] = "1.00"
         with open("./data/members/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))

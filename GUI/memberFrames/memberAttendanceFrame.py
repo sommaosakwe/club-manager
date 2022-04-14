@@ -11,6 +11,8 @@ class memberAttendanceFrame(Frame):
         if not attendance.memberHasAttended(username, week):
             attendance.memberAttend(username, week)
             messagebox.showinfo("Check In","You have successfully checked in for this week")
+        else:
+            messagebox.showwarning("Check In","You have already checked in for this week")
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="memberAttendance")
