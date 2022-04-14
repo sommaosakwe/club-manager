@@ -64,11 +64,14 @@ class treasurerCoachListFrame(Frame):
         coach = Button(nav, text="Coach List")
         coach.grid(column=0,row=0)
 
-        invoice = Button(nav, text="Invoice", command=lambda: parent.switchFrame("treasurerInvoice"))
-        invoice.grid(column=1,row=0)
+        recentInvoice = Button(nav, text="Recent Invoice", command=lambda: parent.switchFrame("treasurerRecentInvoice"))
+        recentInvoice.grid(column=1,row=0)
+
+        globalInvoice = Button(nav, text="Global Invoice", command=lambda: parent.switchFrame("treasurerGlobalInvoice"))
+        globalInvoice.grid(column=2,row=0)
 
         notifications = Button(nav, text="Notifications", command=lambda: parent.switchFrame("treasurerNotifications"))
-        notifications.grid(column=2,row=0)
+        notifications.grid(column=3,row=0)
 
         nav.pack(anchor='n',side=TOP)
 

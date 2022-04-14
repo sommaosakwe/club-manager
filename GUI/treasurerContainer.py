@@ -1,17 +1,22 @@
 from tkinter import *
 
 from GUI.treasurerFrames.treasurerCoachListFrame import treasurerCoachListFrame
-from GUI.treasurerFrames.treasurerPaymentMethodFrame import treasurerPaymentMethodFrame
+from GUI.treasurerFrames.treasurerNotificationsFrame import treasurerNotificationsFrame
+from GUI.treasurerFrames.treasurerGlobalInvoiceFrame import treasurerGlobalInvoiceFrame
+from GUI.treasurerFrames.treasurerRecentInvoiceFrame import treasurerRecentInvoiceFrame
 
 class treasurerContainer(Frame):
 
     def __init__(self, parent):
-        Frame.__init__(self, parent.main, name="memberContainer")
+        Frame.__init__(self, parent.main, name="treasurerContainer")
         self.config(width=1280, height=720)
         self.parent = parent
 
         self.childrenFrames = {
-            "treasurerCoachList": treasurerCoachListFrame
+            "treasurerCoachList": treasurerCoachListFrame,
+            "treasurerRecentInvoice": treasurerRecentInvoiceFrame,
+            "treasurerGlobalInvoice": treasurerGlobalInvoiceFrame,
+            "treasurerNotifications": treasurerNotificationsFrame
         }
 
         self.currentFrame = treasurerCoachListFrame(self)
