@@ -20,7 +20,7 @@ class treasurerLoginFrame(Frame):
         back.place(anchor='nw')
 
         container = Frame(self)
-        heading = Label(container, text="TreasurerLogin", font=("Arial Bold", 25), pady=10)
+        heading = Label(container, text="Treasurer Login", font=("Arial Bold", 25), pady=10)
         heading.pack(side=TOP)
 
         usernameS = Frame(container)

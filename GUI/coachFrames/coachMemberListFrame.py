@@ -2,22 +2,34 @@ from tkinter import *
 from tkinter.ttk import Separator
 from tkinter import messagebox
 
+from API.currentUser import currentUser
 from API.memberStats import memberStats
+from API.notificationData import notificationData
 from API.week import week
 
 from GUI.scrollableFrame import ScrollableFrame
 
 class coachMemberListFrame(Frame):
 
+    def giveDiscount(self,username):
+        memberStats.giveDiscount(username)
+        messagebox.showinfo("Give Discount","You have given a 25% discount to " + username)
+    
+    def giveReminder(self,username):
+        notificationData.addMemberNotification(currentUser.getCurrentUser(), username +", please pay for your unpaid sessions!")
+        messagebox.showinfo("Send Reminder","You have sent a reminder to " + username)
+
     def addMember(self, username):
         memberStats.addMember(username)
         messagebox.showinfo("Member Added", username +" was added to the club")
+        self.parentFrame.switchFrame("coachMemberList")
 
     def removeMember(self, username):
         memberStats.removeMember(username)
         messagebox.showinfo("Member Removed", username +" was removed from the club")
+        self.parentFrame.switchFrame("coachMemberList")
 
-    def createMemberEntry(self, parent, username, isInClub, isOverdue):
+    def createMemberEntry(self, parent, username, isInClub, isOverdue, eligibleForDiscount):
         entry = Frame(parent)
 
         memberUsername = Label(entry, text=username)
@@ -25,14 +37,26 @@ class coachMemberListFrame(Frame):
 
         if not isInClub:
             add = Button(entry, text="Add to club", command=lambda: self.addMember(username))
-            add.pack(side=RIGHT,padx=10)
+            add.pack(side=LEFT,padx=10)
         else:
             remove = Button(entry, text="Remove from club", command=lambda: self.removeMember(username))
-            remove.pack(side=RIGHT,padx=10)
+            remove.pack(side=LEFT,padx=10)
 
-        if isOverdue:
-            remind = Button(entry, text="Remind to pay")
-            remind.pack(side=RIGHT,padx=10)
+            Separator(entry, orient='vertical').pack(side=LEFT,padx=10,fill=Y)
+            attendedSessions = Label(entry, text="Sessions: " + str(memberStats.getAttendedSessions(username)))
+            attendedSessions.pack(side=LEFT,padx=10)
+
+            if eligibleForDiscount:
+                discount = Button(entry, text="Give discount", command=lambda: self.giveDiscount(username))
+                discount.pack(side=LEFT,padx=10)
+
+            Separator(entry, orient='vertical').pack(side=LEFT,padx=10,fill=Y)
+            unpaidSessions = Label(entry, text="Unpaid Sessions: " + str(memberStats.getUnpaidSessions(username)))
+            unpaidSessions.pack(side=LEFT,padx=10)
+
+            if isOverdue:
+                remind = Button(entry, text="Remind to pay", command=lambda: self.giveReminder(username))
+                remind.pack(side=LEFT,padx=10)
         
         return entry
 
@@ -42,8 +66,10 @@ class coachMemberListFrame(Frame):
         scrollableFrame = ScrollableFrame(container,width=1280 * 0.8,height=720 * 0.8)
         scrollableFrame.pack_propagate(False)
 
-        for member in memberStats.memberClubPresence():
-            self.createMemberEntry(scrollableFrame.scrollable_frame, member[0], member[1], False).pack(anchor='nw',side=TOP)
+        members = memberStats.sortedMembers()
+        for m in range(len(members)):
+            self.createMemberEntry(scrollableFrame.scrollable_frame, members[m][0], members[m][1], 
+                (memberStats.getUnpaidSessions(members[m][0])) != 0, m < 10).pack(anchor='nw',side=TOP)
             Separator(scrollableFrame.scrollable_frame,orient='horizontal').pack(anchor='nw',side=TOP,fill=X)
 
         scrollableFrame.pack(side=TOP)
@@ -51,6 +77,7 @@ class coachMemberListFrame(Frame):
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="coachMemberList")
+        self.parentFrame = parent
         self.config(width=1280, height=720)
         self.pack_propagate(False)
 

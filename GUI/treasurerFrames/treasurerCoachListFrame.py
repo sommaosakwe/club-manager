@@ -12,10 +12,12 @@ class treasurerCoachListFrame(Frame):
     def addCoach(self, username):
         coachStats.addCoach(username)
         messagebox.showinfo("Coach Added", username +" was added to the club")
+        self.parentFrame.switchFrame("treasurerCoachList")
 
     def removeCoach(self, username):
         coachStats.removeCoach(username)
         messagebox.showinfo("Coach Removed", username +" was removed from the club")
+        self.parentFrame.switchFrame("treasurerCoachList")
 
     def createCoachEntry(self, parent, username, isInClub):
         entry = Frame(parent)
@@ -47,6 +49,7 @@ class treasurerCoachListFrame(Frame):
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="treasurerCoachList")
+        self.parentFrame = parent
         self.config(width=1280, height=720)
         self.pack_propagate(False)
 

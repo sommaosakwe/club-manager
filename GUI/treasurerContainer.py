@@ -11,7 +11,7 @@ class treasurerContainer(Frame):
         self.parent = parent
 
         self.childrenFrames = {
-            "treasurerCoachListFrame": treasurerCoachListFrame
+            "treasurerCoachList": treasurerCoachListFrame
         }
 
         self.currentFrame = treasurerCoachListFrame(self)

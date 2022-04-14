@@ -4,3 +4,4 @@ coach3:abc
 coach4:efg
 coach3:abc
 coach3:abcdefg
+coach3:username, please pay for your unpaid sessions!

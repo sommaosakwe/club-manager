@@ -1,2 +1,7 @@
 3
-1 100 coach1
+1 0.0 absent
+2 0.0 absent
+3 50.0 absent
+4 57.5 absent
+5 57.5 absent
+6 17.5 absent
