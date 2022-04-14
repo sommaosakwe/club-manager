@@ -90,7 +90,7 @@ class memberStats:
     
     def removeMember(username):
         with open("./data/members/" + username + ".txt", 'w') as f:
-            f.writelines('OUT\n\n')
+            f.writelines('OUT\n\n\n')
     
     def memberPayUpdateRevenue(week, amount):
         with open("./data/weeks.txt", 'r') as f:
@@ -157,4 +157,3 @@ class memberStats:
     
     def checkThreeMonthPayment(username):
         return memberStats.getNumberOfConsecutivePayments(username) >= 12
-

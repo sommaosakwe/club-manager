@@ -17,6 +17,15 @@ class treasurerAccount:
         with open("./data/treasurer.txt",'w') as f:
             f.writelines('\n'.join(data))
         return True
+
+    def deposit(amount):
+        with open("./data/treasurer.txt",'r') as f:
+            data = f.read().split('\n')
+        newBalance = round(float(data[1]), 2) + amount
+        data[1] = str(newBalance)
+        with open("./data/treasurer.txt",'w') as f:
+            f.writelines('\n'.join(data))
+        return True
     
     def getLastWeekPaid():
         with open("./data/treasurer.txt",'r') as f:
