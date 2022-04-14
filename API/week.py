@@ -4,15 +4,33 @@ class week:
             data = f.read().split('\n')
         return int(data[0])
     
-    def parseWeeks(startpoint):
-        data = open("data/weeks.txt","r")
-        relevantWeeks = data.readlines()
-        data.close()
-        relevantWeeks = relevantWeeks[(startpoint + 2):]
-        print(relevantWeeks)
-        ProcessedListOfData = []
-        for week in relevantWeeks:
-            currentWeek = week.strip().split(" ")
-            print(currentWeek)
-            ProcessedListOfData.append([ int(currentWeek[0]), int(currentWeek[1]), currentWeek[2], 100 ])
-        return ProcessedListOfData
+    def getLastWeekPaid():
+        with open("./data/treasurer.txt", 'r') as f:
+            data = f.read().split('\n')
+        return int(data[0])
+
+    def parseWeeksFromLastPayment():
+        invoice = []
+        with open("./data/weeks.txt",'r') as f:
+            data = f.read().split('\n')
+        for line in data[week.getLastWeekPaid() + 1:]:
+            elems = line.split(' ')
+            invoice.append((int(elems[0]), float(elems[1]), elems[2], 100.0))
+        return invoice
+
+    def parseAllWeeks():
+        invoice = []
+        with open("./data/weeks.txt",'r') as f:
+            data = f.read().split('\n')
+        for line in data[1:]:
+            elems = line.split(' ')
+            invoice.append((int(elems[0]), float(elems[1]), elems[2], 100.0))
+        return invoice
+    
+    def getTotalRevenueCostProfit(invoice):
+        revenue = 0.0
+        cost = 0.0
+        for week in invoice:
+            revenue += week[1]
+            cost += (week[2] != 'absent') * 50.0 + week[3]
+        return (revenue, cost, revenue - cost)
