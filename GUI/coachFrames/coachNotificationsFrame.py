@@ -44,14 +44,17 @@ class coachNotificationsFrame(Frame):
 
         nav = Frame(self)
 
-        pay = Button(nav, text="Member List", command=lambda: parent.switchFrame("coachMemberList"))
-        pay.grid(column=0,row=0)
+        memberAttendance = Button(nav, text="Member Attendance List",command=lambda:parent.switchFrame("coachMemberAttendanceList"))
+        memberAttendance.grid(column=0,row=0)
+
+        memberUnpaid = Button(nav, text="Member Unpaid Session List",command=lambda:parent.switchFrame("coachMemberUnpaidList"))
+        memberUnpaid.grid(column=1,row=0)
 
         attend = Button(nav, text="Attendance", command=lambda: parent.switchFrame("coachAttendance"))
-        attend.grid(column=1,row=0)
+        attend.grid(column=2,row=0)
 
         notifications = Button(nav, text="Notifications")
-        notifications.grid(column=2,row=0)
+        notifications.grid(column=3,row=0)
 
         nav.pack(anchor='n',side=TOP)
 

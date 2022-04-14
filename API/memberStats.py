@@ -43,7 +43,7 @@ class memberStats:
     # Returns list of tuples (x, y, z) where x is a member username,
     # y indicates that member's presence in the club, and z is the number
     # of weeks that member has attended, sorted by z
-    def sortedMembers():
+    def sortedMembersByAttendance():
         memberUsernames = []
         memberAttendances = []
         with open("./data/memberCredentials.txt", 'r') as f:
@@ -60,6 +60,23 @@ class memberStats:
         memberAttendances.sort(key=lambda m: m[2])
         memberAttendances.reverse()
         return memberAttendances
+
+    def sortedMembersByUnpaidSessions():
+        memberUsernames = []
+        memberUnpaidSessions = []
+        with open("./data/memberCredentials.txt", 'r') as f:
+            for line in f.read().split('\n'):
+                line and memberUsernames.append(line.split(' ')[0])
+        for username in memberUsernames:
+            with open("./data/members/" + username + ".txt", 'r') as f:
+                data = f.read().split('\n')
+            if data[0] == 'IN':
+                memberUnpaidSessions.append((username, True, memberStats.getUnpaidSessions(username)))
+            elif data[0] == 'OUT':
+                memberUnpaidSessions.append((username, False, 0))
+        memberUnpaidSessions.sort(key=lambda m: m[2])
+        memberUnpaidSessions.reverse()
+        return memberUnpaidSessions
 
     def singleMemberClubPresence(username):
         with open("./data/members/" + username + ".txt", 'r') as f:
@@ -123,3 +140,21 @@ class memberStats:
         data[3] = "1.00"
         with open("./data/members/" + username + ".txt", 'w') as f:
             f.writelines('\n'.join(data))
+    
+    def getNumberOfConsecutivePayments(username):
+        weeksPaid = []
+        consecutivePayments = 0
+        with open("./data/members/" + username + ".txt", 'r') as f:
+                data = f.read().split('\n')
+                if data[0] == 'IN':
+                    weeksPaid = [int(n) for n in data[2].split(' ') if n]
+        for i in range(-1, -(len(weeksPaid)),-1):
+            if weeksPaid[i] != weeksPaid[i-1] + 1:
+                break
+            else:
+                consecutivePayments += 1
+        return consecutivePayments + (bool(weeksPaid) * 1)
+    
+    def checkThreeMonthPayment(username):
+        return memberStats.getNumberOfConsecutivePayments(username) >= 12
+

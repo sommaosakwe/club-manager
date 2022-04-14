@@ -20,6 +20,9 @@ class memberPayFrame(Frame):
                 messagebox.showinfo("Payment Information", "You paid $" + str(amount) + " for week " + str(i))
             else:
                 messagebox.showwarning("Payment Information", "You have already paid for week " + str(i))
+        if memberStats.checkThreeMonthPayment(username):
+            memberStats.giveDiscount(username)
+            messagebox.showinfo("Discount","You have earned a 10% discount for your next class for paying for 12 consecutive weeks")
         parent.switchFrame("memberPay")
     
     def payOutstanding(self, parent):
@@ -31,6 +34,9 @@ class memberPayFrame(Frame):
             memberStats.memberPayUpdateRevenue(thisWeek, 10.0)
             notificationData.addTreasurerCoachNotification(username + " paid $10.0 for week " + str(w))
             messagebox.showinfo("Payment Information", "You paid $10.0 for week " + str(w))
+        memberStats.memberPayUpdateRevenue(thisWeek, 5.0)
+        notificationData.addTreasurerCoachNotification(username + " paid $5.0 as an outstanding payment fee")
+        messagebox.showinfo("Payment Information", "You paid $5.0 as an outstanding payment fee")
         parent.switchFrame("memberPay")
 
     def __init__(self, parent):

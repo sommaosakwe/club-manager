@@ -25,10 +25,10 @@ class coachCreateNotificationFrame(Frame):
 
         notificationLabelFrame = LabelFrame(self, text="Create Notification")
         
-        messageBox = Text(notificationLabelFrame, width = 100, height=10)
+        messageBox = Text(notificationLabelFrame, width = 100, height=1)
         messageBox.pack(side=TOP)
+
+        notificationLabelFrame.pack(side=TOP)
 
         submit = Button(notificationLabelFrame, text="Send Notification", command=lambda: self.sendNotification(messageBox))
         submit.pack(side=TOP)
-
-        notificationLabelFrame.pack()

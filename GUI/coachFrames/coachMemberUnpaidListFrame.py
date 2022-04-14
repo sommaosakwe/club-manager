@@ -9,11 +9,14 @@ from API.week import week
 
 from GUI.scrollableFrame import ScrollableFrame
 
-class coachMemberListFrame(Frame):
+class coachMemberUnpaidListFrame(Frame):
 
     def giveDiscount(self,username):
         memberStats.giveDiscount(username)
-        messagebox.showinfo("Give Discount","You have given a 10% discount to " + username)
+        messagebox.showinfo("Give Discount","You have given a 10% discount to " + username + " for their next class")
+
+    def giveFine(self,username):
+        messagebox.showwarning("Give Fine","A $5.0 fine has already been given to " + username)
     
     def giveReminder(self,username):
         notificationData.addMemberNotification(currentUser.getCurrentUser(), username +", please pay for your unpaid sessions!")
@@ -22,14 +25,14 @@ class coachMemberListFrame(Frame):
     def addMember(self, username):
         memberStats.addMember(username)
         messagebox.showinfo("Member Added", username +" was added to the club")
-        self.parentFrame.switchFrame("coachMemberList")
+        self.parentFrame.switchFrame("coachMemberUnpaidList")
 
     def removeMember(self, username):
         memberStats.removeMember(username)
         messagebox.showinfo("Member Removed", username +" was removed from the club")
-        self.parentFrame.switchFrame("coachMemberList")
+        self.parentFrame.switchFrame("coachMemberUnpaidList")
 
-    def createMemberEntry(self, parent, username, isInClub, isOverdue, eligibleForDiscount):
+    def createMemberUnpaidSessionEntry(self, parent, username, isInClub, unpaidSessionCount):
         entry = Frame(parent)
 
         memberUsername = Label(entry, text=username)
@@ -43,21 +46,24 @@ class coachMemberListFrame(Frame):
             remove.pack(side=LEFT,padx=10)
 
             Separator(entry, orient='vertical').pack(side=LEFT,padx=10,fill=Y)
-            attendedSessions = Label(entry, text="Sessions: " + str(memberStats.getAttendedSessions(username)))
-            attendedSessions.pack(side=LEFT,padx=10)
-
-            if eligibleForDiscount:
-                discount = Button(entry, text="Give discount", command=lambda: self.giveDiscount(username))
-                discount.pack(side=LEFT,padx=10)
-
-            Separator(entry, orient='vertical').pack(side=LEFT,padx=10,fill=Y)
-            unpaidSessions = Label(entry, text="Unpaid Sessions: " + str(memberStats.getUnpaidSessions(username)))
+            unpaidSessions = Label(entry, text="Unpaid sessions: " + str(unpaidSessionCount))
             unpaidSessions.pack(side=LEFT,padx=10)
 
-            if isOverdue:
+            if unpaidSessionCount > 0:
+                fee = Button(entry, text="Give fine", command=lambda: self.giveFine(username))
+                fee.pack(side=LEFT,padx=10)
                 remind = Button(entry, text="Remind to pay", command=lambda: self.giveReminder(username))
                 remind.pack(side=LEFT,padx=10)
-        
+
+            consecutivePaymentsNum = memberStats.getNumberOfConsecutivePayments(username)
+            Separator(entry, orient='vertical').pack(side=LEFT,padx=10,fill=Y)
+            consecutivePayments = Label(entry, text="Consecutive payments: " + str(consecutivePaymentsNum))
+            consecutivePayments.pack(side=LEFT,padx=10)
+
+            if consecutivePaymentsNum >= 12:
+                discount = Button(entry, text="Give discount", command=lambda: self.giveDiscount(username))
+                discount.pack(side=LEFT,padx=10)
+            
         return entry
 
     def memberListBox(self, parent):
@@ -66,17 +72,16 @@ class coachMemberListFrame(Frame):
         scrollableFrame = ScrollableFrame(container,width=1280 * 0.8,height=720 * 0.8)
         scrollableFrame.pack_propagate(False)
 
-        members = memberStats.sortedMembers()
-        for m in range(len(members)):
-            self.createMemberEntry(scrollableFrame.scrollable_frame, members[m][0], members[m][1], 
-                (memberStats.getUnpaidSessions(members[m][0])) != 0, m < 10).pack(anchor='nw',side=TOP)
+        members = memberStats.sortedMembersByUnpaidSessions()
+        for m in members:
+            self.createMemberUnpaidSessionEntry(scrollableFrame.scrollable_frame, m[0],m[1],m[2]).pack(anchor='nw',side=TOP)
             Separator(scrollableFrame.scrollable_frame,orient='horizontal').pack(anchor='nw',side=TOP,fill=X)
 
         scrollableFrame.pack(side=TOP)
         return container
 
     def __init__(self, parent):
-        Frame.__init__(self, parent, name="coachMemberList")
+        Frame.__init__(self, parent, name="coachMemberUnpaidList")
         self.parentFrame = parent
         self.config(width=1280, height=720)
         self.pack_propagate(False)
@@ -89,14 +94,17 @@ class coachMemberListFrame(Frame):
 
         nav = Frame(self)
 
-        member = Button(nav, text="Member List")
-        member.grid(column=0,row=0)
+        memberAttendance = Button(nav, text="Member Attendance List",command=lambda:parent.switchFrame("coachMemberAttendanceList"))
+        memberAttendance.grid(column=0,row=0)
+
+        memberUnpaid = Button(nav, text="Member Unpaid Session List")
+        memberUnpaid.grid(column=1,row=0)
 
         attend = Button(nav, text="Attendance", command=lambda: parent.switchFrame("coachAttendance"))
-        attend.grid(column=1,row=0)
+        attend.grid(column=2,row=0)
 
         notifications = Button(nav, text="Notifications", command=lambda: parent.switchFrame("coachNotifications"))
-        notifications.grid(column=2,row=0)
+        notifications.grid(column=3,row=0)
 
         nav.pack(anchor='n',side=TOP)
 

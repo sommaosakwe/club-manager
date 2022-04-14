@@ -6,7 +6,8 @@ from API.currentUser import currentUser
 from GUI.coachFrames.coachAttendanceFrame import coachAttendanceFrame
 from GUI.coachFrames.coachCreateNotificationFrame import coachCreateNotificationFrame
 from GUI.coachFrames.coachDeadendFrame import coachDeadendFrame
-from GUI.coachFrames.coachMemberListFrame import coachMemberListFrame
+from GUI.coachFrames.coachMemberAttendanceListFrame import coachMemberAttendanceListFrame
+from GUI.coachFrames.coachMemberUnpaidListFrame import coachMemberUnpaidListFrame
 from GUI.coachFrames.coachNotificationsFrame import coachNotificationsFrame
 
 class coachContainer(Frame):
@@ -17,7 +18,8 @@ class coachContainer(Frame):
         self.parent = parent
 
         self.childrenFrames = {
-            "coachMemberList": coachMemberListFrame,
+            "coachMemberAttendanceList": coachMemberAttendanceListFrame,
+            "coachMemberUnpaidList": coachMemberUnpaidListFrame,
             "coachAttendance": coachAttendanceFrame,
             "coachNotifications": coachNotificationsFrame,
             "coachCreateNotification": coachCreateNotificationFrame,
