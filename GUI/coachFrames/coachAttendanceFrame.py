@@ -1,8 +1,19 @@
+from glob import escape
 from tkinter import *
+from tkinter import messagebox
 
+from API.attendance import attendance
+from API.currentUser import currentUser
 from API.week import week
 
 class coachAttendanceFrame(Frame):
+
+    def checkIn(self, username, week):
+        if not attendance.weekIsFree(week) and not attendance.coachHasAttended(username,week):
+            messagebox.showerror("Check In Error","There is already a coach checked in for this week")
+        elif not attendance.coachHasAttended(username, week):
+            attendance.coachAttend(username, week)
+            messagebox.showinfo("Check In","You have successfully checked in as the coach for this week")
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="coachAttendance")
@@ -31,11 +42,5 @@ class coachAttendanceFrame(Frame):
         attendanceQuestion = Label(self, text="Are you attending this week? (" + str(week.getCurrentWeek()) + ")")
         attendanceQuestion.pack(side=TOP)
 
-        attendanceResponses = Frame(self)
-
-        isAttending = Button(attendanceResponses, text="Yes",command=lambda: self.is_attending())
-        isAttending.grid(row=0,column=0)
-        isNotAttending = Button(attendanceResponses, text="No",command=lambda: self.is_not_attending())
-        isNotAttending.grid(row=0,column=1)
-
-        attendanceResponses.pack(side=TOP)
+        checkIn = Button(self, text="Check in", command=lambda: self.checkIn(currentUser.getCurrentUser(), week.getCurrentWeek()))
+        checkIn.pack(side=TOP)

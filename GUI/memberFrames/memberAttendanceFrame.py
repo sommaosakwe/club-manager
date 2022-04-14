@@ -1,8 +1,16 @@
 from tkinter import *
+from tkinter import messagebox
 
+from API.attendance import attendance
+from API.currentUser import currentUser
 from API.week import week
 
 class memberAttendanceFrame(Frame):
+
+    def checkIn(self, username, week):
+        if not attendance.memberHasAttended(username, week):
+            attendance.memberAttend(username, week)
+            messagebox.showinfo("Check In","You have successfully checked in for this week")
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="memberAttendance")
@@ -31,11 +39,5 @@ class memberAttendanceFrame(Frame):
         attendanceQuestion = Label(self, text="Are you attending this week? (" + str(week.getCurrentWeek()) + ")")
         attendanceQuestion.pack(side=TOP)
 
-        attendanceResponses = Frame(self)
-
-        isAttending = Button(attendanceResponses, text="Yes",command=lambda: self.is_attending())
-        isAttending.grid(row=0,column=0)
-        isNotAttending = Button(attendanceResponses, text="No",command=lambda: self.is_not_attending())
-        isNotAttending.grid(row=0,column=1)
-
-        attendanceResponses.pack(side=TOP)
+        checkIn = Button(self, text="Check in", command=lambda: self.checkIn(currentUser.getCurrentUser(), week.getCurrentWeek()))
+        checkIn.pack(side=TOP)

@@ -9,7 +9,8 @@ class memberStats:
                 if data[0] == 'IN':
                     weeksAttended = [int(n) for n in data[1].split(' ') if n]
                     weeksPaid = [int(n) for n in data[2].split(' ') if n]
-        return max(len(weeksAttended) - len(weeksPaid), 0)
+        unpaidSessions = list(set(weeksAttended) - set(weeksPaid))
+        return len(unpaidSessions)
 
     def getAttendedSessions(username):
         weeksAttended = []
