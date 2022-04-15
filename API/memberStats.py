@@ -58,6 +58,7 @@ class memberStats:
                 elif data[0] == 'OUT':
                     memberAttendances.append((username, False, 0))
         memberAttendances.sort(key=lambda m: m[2])
+        memberAttendances.sort(key=lambda m: m[1])
         memberAttendances.reverse()
         return memberAttendances
 
@@ -75,6 +76,7 @@ class memberStats:
             elif data[0] == 'OUT':
                 memberUnpaidSessions.append((username, False, 0))
         memberUnpaidSessions.sort(key=lambda m: m[2])
+        memberUnpaidSessions.sort(key=lambda m: m[1])
         memberUnpaidSessions.reverse()
         return memberUnpaidSessions
 

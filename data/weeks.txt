@@ -1,2 +1,21 @@
-1
-1 0.0 absent
+20
+1 120.0 coach1
+2 150.0 coach2
+3 150.0 coach3
+4 150.0 coach1
+5 150.0 coach3
+6 140.0 coach1
+7 180.0 coach1
+8 180.0 coach3
+9 170.0 coach1
+10 170.0 coach1
+11 180.0 coach3
+12 190.0 coach3
+13 200.0 coach2
+14 220.0 coach1
+15 200.0 coach3
+16 200.0 coach1
+17 200.0 coach3
+18 230.0 coach2
+19 230.0 coach1
+20 240.0 coach3
