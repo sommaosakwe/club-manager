@@ -1,0 +1,5 @@
+member1 paid $10.0 for week 1
+member1 paid $5.0 as an outstanding payment fee
+member1 paid $10.0 for week 1
+member1 paid $10.0 for week 2
+member1 paid $5.0 as an outstanding payment fee

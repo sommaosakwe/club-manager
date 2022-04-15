@@ -25,7 +25,7 @@ class createAccount:
                 return True
         return False
     
-    def createCoach(self, username, password):
+    def createCoach(username, password):
         if not createAccount.coachExists(username):
             with open('./data/coachCredentials.txt', 'a') as f:
                 f.write(username + " " + password + "\n")

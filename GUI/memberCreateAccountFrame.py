@@ -4,9 +4,10 @@ from tkinter import messagebox
 from API.createAccount import createAccount
 
 class memberCreateAccountFrame(Frame):
-    def createAccount(self, username, password):
+    def createAccount(self, parent, username, password):
         if createAccount.createMember(username, password):
             messagebox.showinfo("Create Account","Account successfully created")
+            parent.switchFrame("memberLogin")
         else:
             messagebox.showwarning("Create Account","An account with that username already exists")
 
@@ -35,7 +36,7 @@ class memberCreateAccountFrame(Frame):
         passwordF.pack(anchor='w',side=LEFT,fill=X,expand=1)
         passwordS.pack(anchor='w',side=TOP,fill=X,expand=1)
 
-        createAccount = Button(container, text="Create Account", command=lambda: self.createAccount(usernameF.get(), passwordF.get()))
+        createAccount = Button(container, text="Create Account", command=lambda: self.createAccount(parent, usernameF.get(), passwordF.get()))
         createAccount.pack(anchor='w',side=BOTTOM)
         
         container.place(relx=0.5, rely=0.33, anchor="center")

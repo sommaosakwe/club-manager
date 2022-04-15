@@ -82,7 +82,8 @@ class memberPayFrame(Frame):
 
         paymentResponses.pack(side=TOP,pady=10)
 
-        if memberStats.getUnpaidSessions(currentUser.getCurrentUser()) != 0:
+        if memberStats.getUnpaidSessions(currentUser.getCurrentUser()) > 0 and \
+            (memberStats.getUnpaidSessionList(currentUser.getCurrentUser()) != [week.getCurrentWeek()]):
             paymentOutstanding = Label(self, text="You have outstanding payments!")
             paymentOutstanding.pack(side=TOP)
             payOutstanding = Button(self, text="Pay outstanding payments", command=lambda: self.payOutstanding(parent))
