@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 from API.createAccount import createAccount
 
@@ -6,9 +7,9 @@ class coachCreateAccountFrame(Frame):
 
     def createAccount(self, username, password):
         if createAccount.createCoach(username, password):
-            Label(self, text="Account created").place(anchor='s',relx=0.5, rely=0.5)
+            messagebox.showinfo("Create Account","Account successfully created")
         else:
-            Label(self, text="Coach with that username already exists").place(anchor='s',relx=0.5, rely=0.5)
+            messagebox.showwarning("Create Account","A coach account with that username already exists")
 
     def __init__(self, parent):
         Frame.__init__(self, parent.main, name="coachCreateAccount")
