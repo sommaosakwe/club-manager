@@ -14,6 +14,8 @@ class coachAttendanceFrame(Frame):
         elif not attendance.coachHasAttended(username, week):
             attendance.coachAttend(username, week)
             messagebox.showinfo("Check In","You have successfully checked in as the coach for this week")
+        else:
+            messagebox.showwarning("Check In","You have already checked in as a coach for this week")
 
     def __init__(self, parent):
         Frame.__init__(self, parent, name="coachAttendance")

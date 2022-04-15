@@ -30,5 +30,5 @@ class coachCreateNotificationFrame(Frame):
 
         notificationLabelFrame.pack(side=TOP)
 
-        submit = Button(notificationLabelFrame, text="Send Notification", command=lambda: self.sendNotification(messageBox))
+        submit = Button(self, text="Send Notification", command=lambda: self.sendNotification(messageBox))
         submit.pack(side=TOP)

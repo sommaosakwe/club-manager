@@ -60,6 +60,7 @@ class treasurerRecentInvoiceFrame(Frame):
             Label(scrollableFrame.scrollable_frame, text="No invoice information at this time").pack(side=TOP)
         else:
             self.createRevenueCostProfitRow(scrollableFrame.scrollable_frame, week.getTotalRevenueCostProfit(invoice)).pack(anchor='nw',side=TOP)
+            Separator(scrollableFrame.scrollable_frame,orient='horizontal').pack(anchor='nw',side=TOP,fill=X)
         
         scrollableFrame.pack()
         return container

@@ -22,7 +22,7 @@ class week:
         invoice = []
         with open("./data/weeks.txt",'r') as f:
             data = f.read().split('\n')
-        for line in data[1:]:
+        for line in data[1:week.getCurrentWeek()+1]:
             elems = line.split(' ')
             invoice.append((int(elems[0]), float(elems[1]), elems[2], 100.0))
         return invoice

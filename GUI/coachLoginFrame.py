@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 from API.login import login
 from API.currentUser import currentUser
@@ -10,7 +11,7 @@ class coachLoginFrame(Frame):
             currentUser.setCurrentUser(username)
             parent.switchFrame("coachContainer")
         else:
-            Label(self, text="Incorrect login!").place(anchor='s',relx=0.5, rely=0.5)
+            messagebox.showwarning("Login Error","Incorrect login")
 
     def __init__(self, parent):
         Frame.__init__(self, parent.main, name="coachLogin")

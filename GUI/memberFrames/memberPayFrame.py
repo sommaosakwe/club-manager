@@ -18,11 +18,11 @@ class memberPayFrame(Frame):
                 memberStats.memberPayUpdateRevenue(weekNum, amount)
                 notificationData.addTreasurerCoachNotification(username + " paid $" + str(amount) + " for week " + str(i))
                 messagebox.showinfo("Payment Information", "You paid $" + str(amount) + " for week " + str(i))
+                if memberStats.checkThreeMonthPayment(username):
+                    memberStats.giveDiscount(username)
+                    messagebox.showinfo("Discount","You have earned a 10% discount for your next class for paying for 12 consecutive weeks")
             else:
                 messagebox.showwarning("Payment Information", "You have already paid for week " + str(i))
-        if memberStats.checkThreeMonthPayment(username):
-            memberStats.giveDiscount(username)
-            messagebox.showinfo("Discount","You have earned a 10% discount for your next class for paying for 12 consecutive weeks")
         parent.switchFrame("memberPay")
     
     def payOutstanding(self, parent):
