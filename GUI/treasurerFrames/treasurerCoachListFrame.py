@@ -73,6 +73,9 @@ class treasurerCoachListFrame(Frame):
         notifications = Button(nav, text="Notifications", command=lambda: parent.switchFrame("treasurerNotifications"))
         notifications.grid(column=3,row=0)
 
+        weekChange = Button(nav, text="Week Change", command=lambda: parent.switchFrame("treasurerWeekChange"))
+        weekChange.grid(column=4,row=0)
+
         nav.pack(anchor='n',side=TOP)
 
         coachList = self.coachListBox(self)

@@ -4,6 +4,8 @@ from GUI.treasurerFrames.treasurerCoachListFrame import treasurerCoachListFrame
 from GUI.treasurerFrames.treasurerNotificationsFrame import treasurerNotificationsFrame
 from GUI.treasurerFrames.treasurerGlobalInvoiceFrame import treasurerGlobalInvoiceFrame
 from GUI.treasurerFrames.treasurerRecentInvoiceFrame import treasurerRecentInvoiceFrame
+from GUI.treasurerFrames.treasurerPaymentMethodFrame import treasurerPaymentMethodFrame
+from GUI.treasurerFrames.treasurerWeekChangeFrame import treasurerWeekChangeFrame
 
 class treasurerContainer(Frame):
 
@@ -16,7 +18,9 @@ class treasurerContainer(Frame):
             "treasurerCoachList": treasurerCoachListFrame,
             "treasurerRecentInvoice": treasurerRecentInvoiceFrame,
             "treasurerGlobalInvoice": treasurerGlobalInvoiceFrame,
-            "treasurerNotifications": treasurerNotificationsFrame
+            "treasurerNotifications": treasurerNotificationsFrame,
+            "treasurerWeekChange": treasurerWeekChangeFrame,
+            "treasurerPaymentMethod": treasurerPaymentMethodFrame
         }
 
         self.currentFrame = treasurerCoachListFrame(self)
