@@ -1,5 +1,5 @@
 # Club Manager
-An application designed for the managing of custom clubs/groups
+An application designed for the managing of custom clubs and groups
 
 ## Features
 * Account creation and management
